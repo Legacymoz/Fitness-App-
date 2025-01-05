@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import useFitnessStore from "../store/zustandStore";
+import TotalWeightCalculator from "./CalculateTotalweight";
 
 const WorkoutHistory = () => {
   const [expandedDate, setExpandedDate] = useState(null);
   const previousWorkouts = useFitnessStore((state) => state.previousWorkouts);
+  const { totalWorkouts,setTotalWorkouts } = useFitnessStore();
+
+  useEffect(() => {
+    console.log("Previous Workouts Loaded:", previousWorkouts);
+    setTotalWorkouts();
+    
+  },[previousWorkouts])
+  
 
   const workoutDates = Object.keys(previousWorkouts).map(
     (timestamp) => new Date(Number(timestamp))
@@ -16,6 +25,8 @@ const WorkoutHistory = () => {
 
   return (
     <div>
+      {Object.keys(previousWorkouts).length > 0 && <TotalWeightCalculator />}
+
       <h2>Workout History</h2>
       {workoutDates.map((date) => {
         const formattedDate = date.toLocaleDateString();
@@ -23,12 +34,7 @@ const WorkoutHistory = () => {
 
         return (
           <div key={date.getTime()}>
-            <h3
-              onClick={() => toggleExpandDate(date)}
-              
-            >
-              {formattedDate}
-            </h3>
+            <h3 onClick={() => toggleExpandDate(date)}>{formattedDate}</h3>
             {expandedDate?.getTime() === date.getTime() && (
               <div>
                 {workoutsForDate.map((workout, index) => (

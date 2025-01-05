@@ -45,7 +45,6 @@ const useFitnessStore = create((set) => ({
         set({ exercises: allExercises }); // Update the state with fetched exercises
         nextUrl = data.next; // Proceed to the next page if available
       }
-
     } catch (error) {
       console.error("Error fetching exercises:", error);
     } finally {
@@ -220,6 +219,43 @@ const useFitnessStore = create((set) => ({
         presentDayWorkouts: updatedPresentDayWorkouts, // Update presentDayWorkouts
         workouts: updatedWorkouts, // Update workouts
         previousWorkouts: updatedPreviousWorkouts, // Update previousWorkouts
+      };
+    });
+  },
+  totalWeights: {},
+  setTotalWeight: (timestamp, totalWeight) => {
+    set((state) => {
+      return {
+        totalWeights: {
+          ...state.totalWeights,
+          [timestamp]: totalWeight, // Add the total weight for that timestamp
+        },
+      };
+    });
+  },
+
+  totalWorkouts: {}, // This will store the total number of workouts per day
+  // Function to calculate total workouts and update totalWorkouts
+  setTotalWorkouts: () => {
+    set((state) => {
+      const updatedTotalWorkouts = {};
+
+      // Loop through each day (timestamp) in previousWorkouts
+      for (const timestamp in state.previousWorkouts) {
+        if (Object.hasOwn(state.previousWorkouts, timestamp)) {
+          const workoutsForTheDay = state.previousWorkouts[timestamp];
+
+          // Calculate the number of workouts for the day
+          const totalForDay = workoutsForTheDay.length;
+
+          // Store it in the updatedTotalWorkouts object
+          updatedTotalWorkouts[timestamp] = totalForDay;
+        }
+      }
+
+      // Update the state with the calculated total workouts
+      return {
+        totalWorkouts: updatedTotalWorkouts,
       };
     });
   },

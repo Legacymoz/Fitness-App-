@@ -5,6 +5,8 @@ import useFitnessStore from "./store/zustandStore";
 import ExerciseDetailsButton from "./components/ExerciseDetailsButton";
 import WorkoutHistory from "./components/WorkoutHistory";
 import SearchBar from "./components/SearchBar";
+import TotalWeightBarChart from "./components/TotalWeightBarChart";
+import TotalWorkoutsLineGraphs from "./components/TotalWorkoutsLineGraphs";
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
       <WorkoutHistory />
       <WorkoutLog />
       <TodayWorkout />
-      {/* <SearchBar /> */}
+      <TotalWeightBarChart />
+      <TotalWorkoutsLineGraphs />
+      <SearchBar />
     </div>
   );
 }

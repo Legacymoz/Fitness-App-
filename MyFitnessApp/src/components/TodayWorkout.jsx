@@ -13,6 +13,15 @@ const TodayWorkout = () => {
     setPresentDayWorkouts,
   } = useFitnessStore();
 
+  useEffect(() => {
+    // Call the setPresentDayWorkouts method on component mount to set today's workouts
+    setPresentDayWorkouts();
+  }, [workouts, setPresentDayWorkouts]);
+
+  useEffect(() => {
+    setPresentWorkout(presentDayWorkouts); // Update the presentWorkout state when presentDayWorkouts from store changes
+  }, [presentDayWorkouts]);
+  
   // const currentTimestamp = normalizedDate(Date.now());
 
   // useEffect(() => {
@@ -25,22 +34,14 @@ const TodayWorkout = () => {
   //   console.log("My present workout is: ", presentWorkout);
   // }, [workouts, currentTimestamp]); // Only re-run effect when `workouts` or `currentTimestamp` change
 
-  useEffect(() => {
-    // Call the setPresentDayWorkouts method on component mount to set today's workouts
-    setPresentDayWorkouts();
-  }, [workouts, setPresentDayWorkouts]);
 
-  useEffect(() => {
-    setPresentWorkout(presentDayWorkouts); // Update the presentWorkout state when presentDayWorkouts from store changes
-  }, [presentDayWorkouts]);
-
-  useEffect(() => {
-    console.log("Previous workouts: ", previousWorkouts);
-    console.log("Updated workouts: ", workouts);
-    const timestamp = Object.keys(previousWorkouts)[0]; // Get the first key (timestamp)
-    const currentTime = new Date(parseInt(timestamp)); // Create a Date object from the timestamp
-    console.log("The current time is" ,currentTime);
-  }, [previousWorkouts]);
+  // useEffect(() => {
+  //   console.log("Previous workouts: ", previousWorkouts);
+  //   console.log("Updated workouts: ", workouts);
+  //   const timestamp = Object.keys(previousWorkouts)[0]; // Get the first key (timestamp)
+  //   const currentTime = new Date(parseInt(timestamp)); // Create a Date object from the timestamp
+  //   console.log("The current time is" ,currentTime);
+  // }, [previousWorkouts]);
   
 
   return (
