@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const useFitnessStore = create((set) => ({
   //holds a list of exercises fetched from the API
-  testingUrl: "",
+
   exercises: [],
   //   fetchExercises: async () => {
   //     try {
@@ -57,9 +57,14 @@ const useFitnessStore = create((set) => ({
   setSelectedExercise: (exerciseId) => set({ selectedExercise: exerciseId }),
 
   //holds a list of selected workouts
-  workouts: [],
-  setWorkouts: (workouts) =>
-    set((state) => ({ workouts: [...state.workouts, workouts] })),
+  workouts: JSON.parse(localStorage.getItem("workouts")) || [],
+  setWorkouts: (newWorkout) =>
+    set((state) => {
+      
+      const updatedWorkouts = [...state.workouts, newWorkout];
+      localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
+      return { workouts: updatedWorkouts };
+    }),
 
   // Helper to normalize a timestamp to the start of the day (midnight)
   normalizedDate: (timestamp) => {
@@ -164,12 +169,11 @@ const useFitnessStore = create((set) => ({
   //       presentDayWorkouts: state.presentDayWorkouts.filter((item) => item.exerciseId !== id),
   //     })),
   deleteWorkout: (timestamp) =>
-    set((state) => ({
-      presentDayWorkouts: state.presentDayWorkouts.filter(
-        (item) => item.timestamp !== timestamp
-      ),
-      workouts: state.workouts.filter((item) => item.timestamp !== timestamp),
-    })),
+    set((state) => {
+      const updatedWorkouts = state.workouts.filter((item) => item.timestamp !== timestamp);
+      localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
+      return { workouts: updatedWorkouts };
+    }),
 
   presentDayWorkouts: [],
   setPresentDayWorkouts: () => {
@@ -183,7 +187,7 @@ const useFitnessStore = create((set) => ({
     });
   },
 
-  previousWorkouts: {},
+  previousWorkouts: JSON.parse(localStorage.getItem("previousWorkouts")) || {},
   setPreviousWorkouts: (time) => {
     set((state) => {
       const prevWorkout = state.presentDayWorkouts.find(
@@ -214,7 +218,10 @@ const useFitnessStore = create((set) => ({
       }
       updatedPreviousWorkouts[timestamp].push(prevWorkout); // Add the previous workout to the array
 
-      // Return the updated state
+      localStorage.setItem(
+        "previousWorkouts",
+        JSON.stringify(updatedPreviousWorkouts)
+      ); // Save to localStorage
       return {
         presentDayWorkouts: updatedPresentDayWorkouts, // Update presentDayWorkouts
         workouts: updatedWorkouts, // Update workouts
