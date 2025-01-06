@@ -11,11 +11,11 @@ import TotalWorkoutsLineGraphs from "./components/TotalWorkoutsLineGraphs";
 function App() {
   return (
     <div>
-      <WorkoutHistory />
+      {/* <WorkoutHistory />
       <WorkoutLog />
       <TodayWorkout />
       <TotalWeightBarChart />
-      <TotalWorkoutsLineGraphs />
+      <TotalWorkoutsLineGraphs /> */}
       <SearchBar />
     </div>
   );
