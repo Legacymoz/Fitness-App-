@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ExerciseDetails from "./ExerciseDetails";
+import Modal from "./Modal";
 
 const ExerciseDetailsButton = ({ exerciseId }) => {
   const [showDetails, setShowDetails] = useState(false); // State to toggle details visibility
@@ -10,9 +11,15 @@ const ExerciseDetailsButton = ({ exerciseId }) => {
 
   return (
     <div>
-      <button onClick={handleClick}>Details</button>
-      {showDetails && <ExerciseDetails exerciseId={exerciseId} />}{" "}
-      {/* Conditional rendering */}
+      <button
+        onClick={handleClick}
+        className="bg-green-700 h-11 w-auto text-white px-4 py-2 rounded"
+      >
+        Details
+      </button>
+      <Modal isOpen={showDetails} onClose={() => setShowDetails(false)}>
+        <ExerciseDetails exerciseId={exerciseId} />
+      </Modal>
     </div>
   );
 };

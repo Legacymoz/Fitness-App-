@@ -1,64 +1,14 @@
-// import useFitnessStore from "../store/zustandStore";
-// import React, { useState, useEffect } from "react";
-// import ExerciseDetails from "./ExerciseDetails";
-// import ExerciseDetailsButton from "./ExerciseDetailsButton";
-// import DeleteButton from "./DeleteButton";
-// import DoneButton from "./DoneButton";
-// import EditButton from "./EditButton";
-
-// const TodayWorkout = () => {
-//   const [presentWorkout, setPresentWorkout] = useState([]);
-//   const {
-//     workouts,previousWorkouts,
-//     presentDayWorkouts,
-//     setPresentDayWorkouts,
-//   } = useFitnessStore();
-
-//   useEffect(() => {
-//     // Call the setPresentDayWorkouts method on component mount to set today's workouts
-//     setPresentDayWorkouts();
-//   }, [workouts, setPresentDayWorkouts]);
-
-//   useEffect(() => {
-//     setPresentWorkout(presentDayWorkouts); // Update the presentWorkout state when presentDayWorkouts from store changes
-//   }, [presentDayWorkouts]);
-  
-
-  
-
-//   return (
-//     <div>
-//       <h1>Todays Workout</h1>
-//       {presentWorkout.length > 0 ? (
-//         presentWorkout.map((workout) => (
-//           <div key={ workout.timestamp}>
-//             <h2>{workout.exerciseName}</h2> {/* Access exercise name */}
-//             <p>Sets: {workout.sets}</p> {/* Display sets */}
-//             <p>Reps: {workout.reps}</p> {/* Display reps */}
-//             <p>Weight: {workout.weight}</p> {/* Display weight if necessary */}
-//             <ExerciseDetailsButton exerciseId={workout.exerciseId} />
-//             <DeleteButton timestamp={workout.timestamp} />
-//             <DoneButton timestamp={workout.timestamp} />
-//             <EditButton workout={workout} />
-//           </div>
-//         ))
-//       ) : (
-//         <p>No workout logged for today.</p> // If no workouts, display this message
-//       )}
-//     </div>
-//   );
-// };
-
-// export default TodayWorkout;
-
 import React, { useState, useEffect } from "react";
 import useFitnessStore from "../store/zustandStore";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import DoneButton from "./DoneButton";
+import ExerciseDetailsButton from "./ExerciseDetailsButton";
+import ExerciseDetails from "./ExerciseDetails";
 
-const TodaysWorkouts = () => {
-  const { presentDayWorkouts, setPresentDayWorkouts, workouts } = useFitnessStore();
+const TodayWorkout = () => {
+  const { presentDayWorkouts, setPresentDayWorkouts, workouts } =
+    useFitnessStore();
   const [selectedWorkout, setSelectedWorkout] = useState(null);
 
   useEffect(() => {
@@ -72,36 +22,44 @@ const TodaysWorkouts = () => {
   };
 
   return (
-    <div>
-      <h2>Today's Workouts</h2>
+    <div className=" bg-gray-50 p-4 rounded-lg  w-full">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        Today's Workouts
+      </h2>
       {presentDayWorkouts.length > 0 ? (
         <ul>
           {presentDayWorkouts.map((workout, index) => (
-            <li key={index}>
-              <h2
-                onClick={() => handleWorkoutClick(workout)}
-                style={{ cursor: "pointer" }}
-              >
-                {workout.exerciseName}
-              </h2>
-              {selectedWorkout === workout && (
-                <div>
-                  <p>Sets: {workout.sets}</p>
-                  <p>Reps: {workout.reps}</p>
-                  <p>Weight: {workout.weight}</p>
-                  <EditButton workout={workout} />
-                  <DoneButton timestamp={workout.timestamp} />
-                  <DeleteButton timestamp={workout.timestamp} />
-                </div>
-              )}
+            <li key={index} className="mb-4">
+              <div className="bg-white p-4 rounded-lg shadow-md cursor-pointer mt-4">
+                <h2
+                  onClick={() => handleWorkoutClick(workout)}
+                  className="text-xl font-bold text-gray-800"
+                >
+                  {workout.exerciseName}
+                </h2>
+                {selectedWorkout === workout && (
+                  <div className="mt-2">
+                    <p className="text-gray-600">Sets: {workout.sets}</p>
+                    <p className="text-gray-600">Reps: {workout.reps}</p>
+                    <p className="text-gray-600">Weight: {workout.weight}</p>
+
+                    <div className="mt-2 flex space-x-2">
+                      <EditButton workout={workout} />
+                      <DoneButton timestamp={workout.timestamp} />
+                      <DeleteButton timestamp={workout.timestamp} />
+                      <ExerciseDetailsButton exerciseId={workout.exerciseId} />
+                    </div>
+                  </div>
+                )}
+              </div>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No workouts for today.</p>
+        <p className="text-gray-600">No workouts for today.</p>
       )}
     </div>
   );
 };
 
-export default TodaysWorkouts;
+export default TodayWorkout;

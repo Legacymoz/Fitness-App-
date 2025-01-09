@@ -26,8 +26,8 @@ const TotalWorkoutsLineGraphs = () => {
   const { totalWorkouts } = useFitnessStore();
 
   const chartData = {
-    labels: Object.keys(totalWorkouts).map(
-      (timestamp) => new Date(Number(timestamp)).toLocaleDateString() // Format timestamp as date string
+    labels: Object.keys(totalWorkouts).map((timestamp) =>
+      new Date(Number(timestamp)).toLocaleDateString()
     ),
     datasets: [
       {
@@ -50,7 +50,7 @@ const TotalWorkoutsLineGraphs = () => {
       tooltip: {
         callbacks: {
           label: function (tooltipItem) {
-            return `Total Workouts: ${tooltipItem.raw}`; // Customize tooltip text
+            return `Total Workouts: ${tooltipItem.raw}`;
           },
         },
       },
@@ -73,8 +73,10 @@ const TotalWorkoutsLineGraphs = () => {
   };
 
   return (
-    <div>
-      <h2>Total Workouts Chart</h2>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        Total Workouts Chart
+      </h2>
       <Line data={chartData} options={chartOptions} />
     </div>
   );

@@ -8,7 +8,6 @@ const EditForm = () => {
     sets: "",
     reps: "",
     weight: "",
-    date: ""
   });
 
   useEffect(() => {
@@ -17,7 +16,6 @@ const EditForm = () => {
         sets: editingWorkout.sets,
         reps: editingWorkout.reps,
         weight: editingWorkout.weight,
-        date: editingWorkout.date,
       });
     }
   }, [editingWorkout]);
@@ -53,11 +51,15 @@ const EditForm = () => {
   if (!editingWorkout) return null;
 
   return (
-    <div>
-      <h2>Edit Workout</h2>
-      <form onSubmit={handleFormSubmit}>
+    <div className="p-4">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        Edit Workout
+      </h2>
+      <form onSubmit={handleFormSubmit} className="space-y-4">
         <div>
-          <label htmlFor="sets">Sets:</label>
+          <label htmlFor="sets" className="block text-gray-700">
+            Sets:
+          </label>
           <input
             type="number"
             name="sets"
@@ -66,10 +68,13 @@ const EditForm = () => {
             required
             min="1"
             placeholder="Enter number of Sets"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
         <div>
-          <label htmlFor="reps">Reps:</label>
+          <label htmlFor="reps" className="block text-gray-700">
+            Reps:
+          </label>
           <input
             type="number"
             name="reps"
@@ -77,10 +82,13 @@ const EditForm = () => {
             onChange={handleInput}
             required
             placeholder="Enter number of Reps"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
         <div>
-          <label htmlFor="weight">Weight:</label>
+          <label htmlFor="weight" className="block text-gray-700">
+            Weight:
+          </label>
           <input
             type="number"
             name="weight"
@@ -88,19 +96,15 @@ const EditForm = () => {
             onChange={handleInput}
             required
             placeholder="Enter Weight"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
-        <div>
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            name="date"
-            value={workoutDetails.date}
-            onChange={handleInput}
-            required
-          />
-        </div>
-        <button type="submit">Update</button>
+        <button
+          type="submit"
+          className="bg-green-500 text-white px-4 py-2 rounded-md"
+        >
+          Update
+        </button>
       </form>
     </div>
   );

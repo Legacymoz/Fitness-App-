@@ -1,0 +1,35 @@
+.react-calendar {
+  @apply w-full max-w-md bg-transparent border-none rounded-lg shadow-md mx-auto;
+}
+
+.react-calendar__navigation button {
+  @apply text-black;
+}
+
+.react-calendar__navigation__label {
+  @apply text-black;
+}
+
+.react-calendar__tile {
+  @apply text-center p-2 cursor-pointer text-black relative;
+}
+
+.react-calendar__tile--now {
+  @apply bg-lightGreen text-black;
+}
+
+.react-calendar__tile--active {
+  @apply bg-green-500 text-white;
+}
+
+.react-calendar__tile--hover:hover {
+  @apply bg-green-100;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  @apply text-red-500;
+}
+
+.indicator {
+  @apply w-2 h-2 bg-red-500 rounded-full absolute top-1 right-1;
+}

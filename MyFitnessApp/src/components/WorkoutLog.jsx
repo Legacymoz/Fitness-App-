@@ -58,7 +58,6 @@ const WorkoutLog = () => {
       date: new Date().toLocaleDateString("en-CA", {
         timeZone: "Africa/Nairobi",
       }),
-      
     }); // Reset form inputs
     console.log("These are my Workouts:", workouts);
   };
@@ -68,59 +67,77 @@ const WorkoutLog = () => {
   }, [workouts]);
 
   return (
-    <div>
-      <h1>My Workout</h1>
-      <div>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        Log a Workout
+      </h2>
+      <div className="mb-4">
         <ExerciseList />
-        <form onSubmit={handleFormSubmit}>
-          <div>
-            <label htmlFor="sets">Sets:</label>
-            <input
-              type="number"
-              name="sets"
-              value={workoutDetails.sets}
-              onChange={handleInput}
-              required
-              min="1"
-              placeholder="Enter number of Sets"
-            />
-          </div>
-          <div>
-            <label htmlFor="reps">Reps:</label>
-            <input
-              type="number"
-              name="reps"
-              value={workoutDetails.reps}
-              onChange={handleInput}
-              required
-              placeholder="Enter number of Reps"
-            />
-          </div>
-          <div>
-            <label htmlFor="weight">Weight:</label>
-            <input
-              type="number"
-              name="weight"
-              value={workoutDetails.weight}
-              onChange={handleInput}
-              required
-              placeholder="Enter Weight"
-            />
-          </div>
-          <div>
-            <label htmlFor="date">Date:</label>
-            <input
-              type="date"
-              name="date"
-              value={workoutDetails.date}
-              onChange={handleInput}
-              required
-            />
-          </div>
-          <button type="submit">Submit</button>
-        </form>
       </div>
-      <EditForm />
+      <form onSubmit={handleFormSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="sets" className="block text-gray-700">
+            Sets:
+          </label>
+          <input
+            type="number"
+            name="sets"
+            value={workoutDetails.sets}
+            onChange={handleInput}
+            required
+            min="1"
+            placeholder="Enter number of Sets"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label htmlFor="reps" className="block text-gray-700">
+            Reps:
+          </label>
+          <input
+            type="number"
+            name="reps"
+            value={workoutDetails.reps}
+            onChange={handleInput}
+            required
+            placeholder="Enter number of Reps"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label htmlFor="weight" className="block text-gray-700">
+            Weight:
+          </label>
+          <input
+            type="number"
+            name="weight"
+            value={workoutDetails.weight}
+            onChange={handleInput}
+            required
+            placeholder="Enter Weight"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label htmlFor="date" className="block text-gray-700">
+            Date:
+          </label>
+          <input
+            type="date"
+            name="date"
+            value={workoutDetails.date}
+            onChange={handleInput}
+            required
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-green-500 text-white px-4 py-2 rounded-md"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
 };

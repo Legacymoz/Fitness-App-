@@ -30,28 +30,45 @@ const AllWorkoutList = () => {
   };
 
   return (
-    <div>
-      <h2>All Workouts</h2>
-      <ul>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        All Workouts
+      </h2>
+      <ul className="space-y-4">
         {uniqueDates.map((date, index) => (
           <li key={index}>
-            <button onClick={() => handleDateClick(date)}>{date}</button>
+            <button
+              onClick={() => handleDateClick(date)}
+              className="text-lg font-semibold text-gray-800 hover:text-gray-600"
+            >
+              {date}
+            </button>
             {selectedDate === date && (
-              <ul>
+              <ul className="mt-2 space-y-2">
                 {workouts
                   .filter((workout) => formatDate(workout.timestamp) === date)
                   .map((workout, index) => (
-                    <li key={index}>
-                      <button onClick={() => handleExerciseClick(workout)}>
+                    <li
+                      key={index}
+                      className="bg-gray-100 p-4 rounded-lg shadow-inner"
+                    >
+                      <button
+                        onClick={() => handleExerciseClick(workout)}
+                        className="text-lg font-semibold text-gray-800 hover:text-gray-600"
+                      >
                         {workout.exerciseName}
                       </button>
                       {selectedExercise === workout && (
-                        <div>
-                          <p>Sets: {workout.sets}</p>
-                          <p>Reps: {workout.reps}</p>
-                          <p>Weight: {workout.weight}</p>
-                          <EditButton workout={workout} />
-                          <DeleteButton timestamp={workout.timestamp} />
+                        <div className="mt-2">
+                          <p className="text-gray-600">Sets: {workout.sets}</p>
+                          <p className="text-gray-600">Reps: {workout.reps}</p>
+                          <p className="text-gray-600">
+                            Weight: {workout.weight}
+                          </p>
+                          <div className="mt-2 flex space-x-2">
+                            <EditButton workout={workout} />
+                            <DeleteButton timestamp={workout.timestamp} />
+                          </div>
                         </div>
                       )}
                     </li>

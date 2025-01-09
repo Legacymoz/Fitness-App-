@@ -9,6 +9,7 @@ const ExerciseDetails = ({exerciseId}) => {
     
 
     useEffect(() => {
+      console.log("my exerciseId", exerciseId)
       // Find the described exercise when component loads or exerciseId changes
       const foundExercise = exercises.find(
         (exercise) => exercise.id === parseInt(exerciseId, 10)
@@ -30,20 +31,25 @@ const ExerciseDetails = ({exerciseId}) => {
       return <div>Loading exercise details...</div>;
     }   
   return (
-    <div>
-      <h2>{describedExercise.name}</h2>
-      <div>
-        {imageUrl ? (
-          <img src={imageUrl} alt={describedExercise.name} />
-        ) : (
-          <p>No image available for this exercise.</p>
-        )}
-      </div>
-      <p
-        dangerouslySetInnerHTML={{
-          __html: describedExercise.description,
-        }}
-      />
+    <div className="mt-4 p-4 bg-white rounded-lg shadow-md">
+      <h3 className="text-xl font-semibold text-gray-800 mb-2">
+        {describedExercise.name}
+      </h3>
+      <p className="text-gray-800 mb-2">
+        <strong>Description: </strong>
+        <span
+          dangerouslySetInnerHTML={{
+            __html: describedExercise.description || "No description available",
+          }}
+        />
+      </p>
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt={describedExercise.name}
+          className="w-full max-w-xs max-h-48 h-auto rounded-md mb-4 mx-auto"
+        />
+      )}
     </div>
   );
 }

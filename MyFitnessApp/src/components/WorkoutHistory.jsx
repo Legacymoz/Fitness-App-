@@ -1,18 +1,16 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useFitnessStore from "../store/zustandStore";
 import TotalWeightCalculator from "./CalculateTotalweight";
 
 const WorkoutHistory = () => {
   const [expandedDate, setExpandedDate] = useState(null);
   const previousWorkouts = useFitnessStore((state) => state.previousWorkouts);
-  const { totalWorkouts,setTotalWorkouts } = useFitnessStore();
+  const { totalWorkouts, setTotalWorkouts } = useFitnessStore();
 
   useEffect(() => {
     console.log("Previous Workouts Loaded:", previousWorkouts);
     setTotalWorkouts();
-    
-  },[previousWorkouts])
-  
+  }, [previousWorkouts]);
 
   const workoutDates = Object.keys(previousWorkouts).map(
     (timestamp) => new Date(Number(timestamp))
@@ -24,34 +22,43 @@ const WorkoutHistory = () => {
   };
 
   return (
-    <div>
+    <div className="bg-white p-6 rounded-lg shadow-md">
       {Object.keys(previousWorkouts).length > 0 && <TotalWeightCalculator />}
-
-      <h2>Workout History</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        Workout History
+      </h2>
       {workoutDates.map((date) => {
         const formattedDate = date.toLocaleDateString();
         const workoutsForDate = previousWorkouts[date.getTime()];
 
         return (
-          <div key={date.getTime()}>
-            <h3 onClick={() => toggleExpandDate(date)}>{formattedDate}</h3>
+          <div key={date.getTime()} className="mb-4">
+            <h3
+              onClick={() => toggleExpandDate(date)}
+              className="text-lg font-semibold text-gray-800 cursor-pointer"
+            >
+              {formattedDate}
+            </h3>
             {expandedDate?.getTime() === date.getTime() && (
-              <div>
+              <div className="mt-2 space-y-2">
                 {workoutsForDate.map((workout, index) => (
-                  <div key={index}>
-                    <p>
+                  <div
+                    key={index}
+                    className="bg-gray-100 p-4 rounded-lg shadow-inner"
+                  >
+                    <p className="text-gray-600">
                       <strong>Exercise: </strong>
                       {workout.exerciseName}
                     </p>
-                    <p>
+                    <p className="text-gray-600">
                       <strong>Sets: </strong>
                       {workout.sets}
                     </p>
-                    <p>
+                    <p className="text-gray-600">
                       <strong>Reps: </strong>
                       {workout.reps}
                     </p>
-                    <p>
+                    <p className="text-gray-600">
                       <strong>Weight: </strong>
                       {workout.weight}
                     </p>

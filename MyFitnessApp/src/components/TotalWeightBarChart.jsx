@@ -8,7 +8,7 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
-} from "chart.js"; // Import the necessary Chart.js library components
+} from "chart.js";
 import useFitnessStore from "../store/zustandStore";
 
 ChartJS.register(
@@ -18,26 +18,25 @@ ChartJS.register(
   BarElement,
   CategoryScale,
   LinearScale
-); // Register the Chart.js components
+);
 
 const TotalWeightBarChart = () => {
   const { totalWeights } = useFitnessStore();
 
   const chartData = {
-    labels: Object.keys(totalWeights).map(
-      (timestamp) => new Date(Number(timestamp)).toLocaleDateString() // Convert timestamp to a human-readable date
+    labels: Object.keys(totalWeights).map((timestamp) =>
+      new Date(Number(timestamp)).toLocaleDateString()
     ),
     datasets: [
       {
-        label: "Total Weight Lifted per Day", // Label for the chart
-        data: Object.values(totalWeights), // Values of totalWeight lifted on each date
-        backgroundColor: "rgba(75, 192, 192, 0.2)", // Bar color (Optional, based on your visual preference)
-        borderColor: "rgba(75, 192, 192, 1)", // Border color for bars
-        borderWidth: 1, // Border thickness
+        label: "Total Weight Lifted per Day",
+        data: Object.values(totalWeights),
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
       },
     ],
   };
-
 
   const chartOptions = {
     responsive: true,
@@ -55,8 +54,10 @@ const TotalWeightBarChart = () => {
   };
 
   return (
-    <div>
-      <h2>Weight Lifting Progress</h2>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        Weight Lifting Progress
+      </h2>
       <Bar data={chartData} options={chartOptions} />
     </div>
   );
