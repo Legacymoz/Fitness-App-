@@ -1,28 +1,25 @@
-import { useState, useEffect } from "react";
-import TodayWorkout from "./components/TodayWorkout";
-import WorkoutLog from "./components/WorkoutLog";
-import useFitnessStore from "./store/zustandStore";
-import ExerciseDetailsButton from "./components/ExerciseDetailsButton";
-import WorkoutHistory from "./components/WorkoutHistory";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import HomePage from "./components/HomePage";
+import WorkoutsPage from "./components/WorkoutsPage";
+import ProgressPage from "./components/ProgressPage";
 import SearchBar from "./components/SearchBar";
-import TotalWeightBarChart from "./components/TotalWeightBarChart";
-import TotalWorkoutsLineGraphs from "./components/TotalWorkoutsLineGraphs";
-import CalendarView from "./components/CalendarView";
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <CalendarView />
-      <WorkoutLog />
-      <TodayWorkout />
-
-      <WorkoutHistory />
-
-      {/* <TotalWeightBarChart />
-      <TotalWorkoutsLineGraphs />
-      <SearchBar /> */}
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/workouts" element={<WorkoutsPage />} />
+          <Route path="/progress" element={<ProgressPage />} />
+          <Route path="/search" element={<SearchBar />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

@@ -3,14 +3,16 @@ import useFitnessStore from "../store/zustandStore";
 
 
 const ExerciseList = () => {
-  const { exercises, fetchExercises, setSelectedExercise, fetchExerciseImages, fetchFullExerciseInfo } = useFitnessStore();
+  const { exercises, fetchExercises, hasFetchedExercises, setSelectedExercise, fetchExerciseImages, fetchFullExerciseInfo } = useFitnessStore();
 
   useEffect(() => {
-    fetchExercises(); // Fetch data on component mount
-    fetchFullExerciseInfo();
-    fetchExerciseImages()
+    if (!hasFetchedExercises) {
+      fetchExercises(); // Fetch data on component mount
+      
+    }
+    
 
-  }, [fetchExercises]);
+  }, [fetchExercises, hasFetchedExercises]);
 
   useEffect(()=>{
     console.log("Exercises Loading complete")

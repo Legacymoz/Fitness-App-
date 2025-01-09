@@ -87,6 +87,7 @@ const SearchBar = () => {
   const {
     fullExerciseInfo,
     fetchFullExerciseInfo,
+    fetchExerciseImages,
     isFullExerciseLoading: loading,
   } = useFitnessStore();
   const [selectedExercise, setSelectedExercise] = useState(null);
@@ -119,6 +120,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     fetchFullExerciseInfo();
+    fetchExerciseImages();
   }, []);
 
   // Handle page changes

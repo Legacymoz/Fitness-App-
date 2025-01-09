@@ -24,7 +24,10 @@ const useFitnessStore = create((set) => ({
   //     }
   //   },
   isLoading: false,
+  hasFetchedExercises: false,
   fetchExercises: async () => {
+    set({ hasFetchedExercises: true });
+    
     set({ isLoading: true }); // Indicate loading started
     try {
       let allExercises = [];
@@ -45,6 +48,7 @@ const useFitnessStore = create((set) => ({
         set({ exercises: allExercises }); // Update the state with fetched exercises
         nextUrl = data.next; // Proceed to the next page if available
       }
+      set({ hasFetchedExercises: true });
     } catch (error) {
       console.error("Error fetching exercises:", error);
     } finally {
@@ -60,7 +64,6 @@ const useFitnessStore = create((set) => ({
   workouts: JSON.parse(localStorage.getItem("workouts")) || [],
   setWorkouts: (newWorkout) =>
     set((state) => {
-      
       const updatedWorkouts = [...state.workouts, newWorkout];
       localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
       return { workouts: updatedWorkouts };
@@ -170,7 +173,9 @@ const useFitnessStore = create((set) => ({
   //     })),
   deleteWorkout: (timestamp) =>
     set((state) => {
-      const updatedWorkouts = state.workouts.filter((item) => item.timestamp !== timestamp);
+      const updatedWorkouts = state.workouts.filter(
+        (item) => item.timestamp !== timestamp
+      );
       localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
       return { workouts: updatedWorkouts };
     }),
@@ -266,6 +271,20 @@ const useFitnessStore = create((set) => ({
       };
     });
   },
+
+  editWorkout: (updatedWorkout) =>
+    set((state) => {
+      const updatedWorkouts = state.workouts.map((workout) =>
+        workout.timestamp === updatedWorkout.timestamp
+          ? updatedWorkout
+          : workout
+      );
+      localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
+      return { workouts: updatedWorkouts };
+    }),
+  editingWorkout: null,
+  setEditingWorkout: (workout) => set({ editingWorkout: workout }),
+  clearEditingWorkout: () => set({ editingWorkout: null }),
 }));
 
 export default useFitnessStore;

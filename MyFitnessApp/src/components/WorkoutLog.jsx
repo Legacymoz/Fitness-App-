@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useFitnessStore from "../store/zustandStore";
 import ExerciseList from "./ExerciseList";
+import EditForm from "./EditForm";
 
 const WorkoutLog = () => {
   const { selectedExercise, setWorkouts, workouts, exercises } =
@@ -119,6 +120,7 @@ const WorkoutLog = () => {
           <button type="submit">Submit</button>
         </form>
       </div>
+      <EditForm />
     </div>
   );
 };
