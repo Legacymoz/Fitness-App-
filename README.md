@@ -42,31 +42,31 @@ Use the navigation bar to switch between different sections of the app.
 Log workouts, view workout history,search for workouts, and track your progress.
 
 ##Components
-1.HomePage.jsx
+1. HomePage.jsx
   Displays a welcome message and includes the CalendarView and TodayWorkout components.
-2.CalendarView.jsx
+2. CalendarView.jsx
   Interactive calendar to view workouts on specific dates.
-3.TodayWorkout.jsx
+3. TodayWorkout.jsx
   Displays today's workouts with options to edit, delete, and view details.
-4.WorkoutLog.jsx
+4. WorkoutLog.jsx
   Form to log new workouts.
-5.WorkoutHistory.jsx
+5. WorkoutHistory.jsx
   Displays the history of workouts with expandable details.
-6.TotalWeightBarChart.jsx
+6. TotalWeightBarChart.jsx
   Bar chart showing the total weight lifted per day.
-7.TotalWorkoutsLineGraphs.jsx
+7. TotalWorkoutsLineGraphs.jsx
   Line graph showing the total number of workouts over time.
-8.SearchBar.jsx
+8. SearchBar.jsx
   Search for exercises and view detailed information.
-9.ExerciseDetailsButton.jsx
+9. ExerciseDetailsButton.jsx
   Button to view detailed information about an exercise in a modal.
-10.EditButton.jsx
+10. EditButton.jsx
   Button to edit a workout in a modal.
-11.DeleteButton.jsx
+11. DeleteButton.jsx
   Button to delete a workout.
-12.DoneButton.jsx
+12. DoneButton.jsx
   Button to mark a workout as done.
-13.Modal.jsx
+13. Modal.jsx
   Reusable modal component to display content in a pop-up window.
   
 ##Contributing
