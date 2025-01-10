@@ -8,7 +8,7 @@ const DeleteButton = ({ timestamp }) => {
   return (
     <div>
       <button
-        className="bg-green-700 h-11 w-auto text-white px-4 py-2 rounded"
+        className="bg-green-700 h-11 w-20 text-white px-4 py-2 rounded"
         onClick={() => {
           deleteWorkout(timestamp);
         }}

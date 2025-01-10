@@ -5,7 +5,6 @@ import DeleteButton from "./DeleteButton";
 import DoneButton from "./DoneButton";
 import ExerciseDetailsButton from "./ExerciseDetailsButton";
 
-
 const TodayWorkout = () => {
   // Destructure necessary state and functions from the Zustand store
   const { presentDayWorkouts, setPresentDayWorkouts, workouts } =
@@ -48,7 +47,7 @@ const TodayWorkout = () => {
                     <p className="text-gray-600">Reps: {workout.reps}</p>
                     <p className="text-gray-600">Weight: {workout.weight}</p>
 
-                    <div className="mt-2 flex space-x-2">
+                    <div className="mt-2 flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
                       <EditButton workout={workout} />
                       <DoneButton timestamp={workout.timestamp} />
                       <DeleteButton timestamp={workout.timestamp} />

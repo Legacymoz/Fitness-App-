@@ -76,6 +76,9 @@ const SearchBar = () => {
         placeholder="Search by name, muscle, or category..."
         className="block w-full p-2 border border-gray-300 rounded-md mb-4"
       />
+      {loading && (
+        <p className="text-gray-600">Loading exercises, please wait...</p>
+      )}
 
       {paginatedExercises.length > 0 ? (
         <div>
@@ -97,9 +100,6 @@ const SearchBar = () => {
               )}
             </div>
           ))}
-          {loading && (
-            <p className="text-gray-600">Loading exercises, please wait...</p>
-          )}
 
           {/* Pagination Controls */}
           <div className="mt-4 flex justify-between items-center">

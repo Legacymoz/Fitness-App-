@@ -89,6 +89,7 @@ const useFitnessStore = create((set) => ({
 
   fetchFullExerciseInfo: async () => {
     try {
+      set({ isFullExerciseLoading: true });
       let allExercisesInfo = "";
       let nextUrl = "https://wger.de/api/v2/exerciseinfo/";
 
@@ -96,10 +97,12 @@ const useFitnessStore = create((set) => ({
         const response = await axios.get(nextUrl);
         const data = response.data;
         allExercisesInfo = [...allExercisesInfo, ...data.results];
+        set({ fullExerciseInfo: allExercisesInfo });
         nextUrl = data.next; // Proceed to the next page if available
       }
+       set({ isFullExerciseLoading: false });
 
-      set({ fullExerciseInfo: allExercisesInfo });
+      
     } catch (error) {
       console.error("Error fetching full exercises info:", error);
     }
