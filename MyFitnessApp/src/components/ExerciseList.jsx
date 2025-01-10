@@ -34,9 +34,10 @@ const ExerciseList = () => {
           setSelectedExercise(e.target.value);
         }}
         className="block w-full p-2 border border-gray-300 rounded-md"
+        
       >
         <option value="">Select an exercise</option>
-        {exercises.length > 0 ? (
+        {exercises.length > 300 ? (
           exercises.map((exercise) => (
             <option key={exercise.id} value={exercise.id}>
               {exercise.name}
