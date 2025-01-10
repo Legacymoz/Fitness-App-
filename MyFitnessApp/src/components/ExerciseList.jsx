@@ -37,7 +37,7 @@ const ExerciseList = () => {
         
       >
         <option value="">Select an exercise</option>
-        {exercises.length > 300 ? (
+        {exercises.length > 1000 ? (
           exercises.map((exercise) => (
             <option key={exercise.id} value={exercise.id}>
               {exercise.name}
