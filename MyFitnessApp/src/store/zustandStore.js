@@ -32,9 +32,9 @@ const useFitnessStore = create((set) => ({
           ),
         ];
 
-        set({ exercises: allExercises }); // Update the state with fetched exercises
         nextUrl = data.next; // Proceed to the next page if available
       }
+      set({ exercises: allExercises }); // Update the state with fetched exercises
       set({ hasFetchedExercises: true });
     } catch (error) {
       console.error("Error fetching exercises:", error);
