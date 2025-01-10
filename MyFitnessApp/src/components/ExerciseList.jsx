@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import useFitnessStore from "../store/zustandStore";
 
 const ExerciseList = () => {
+  // Destructure necessary state and functions from the Zustand store
   const {
     exercises,
     fetchExercises,
@@ -9,12 +10,14 @@ const ExerciseList = () => {
     setSelectedExercise,
   } = useFitnessStore();
 
+  // useEffect hook to fetch exercises when the component mounts if they haven't been fetched already
   useEffect(() => {
     if (!hasFetchedExercises) {
       fetchExercises(); // Fetch data on component mount
     }
   }, [fetchExercises, hasFetchedExercises]);
 
+  // useEffect hook to log a message when exercises are loaded
   useEffect(() => {
     console.log("Exercises Loading complete");
   }, [exercises]);

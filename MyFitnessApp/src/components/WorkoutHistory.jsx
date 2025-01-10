@@ -3,20 +3,28 @@ import useFitnessStore from "../store/zustandStore";
 import TotalWeightCalculator from "./CalculateTotalweight";
 
 const WorkoutHistory = () => {
+  // State to keep track of the expanded date
   const [expandedDate, setExpandedDate] = useState(null);
+
+  // Get previous workouts from the Zustand store
   const previousWorkouts = useFitnessStore((state) => state.previousWorkouts);
+
+  // Destructure necessary state and functions from the Zustand store
   const { totalWorkouts, setTotalWorkouts } = useFitnessStore();
 
+  // useEffect hook to log a message and set total workouts when previousWorkouts change
   useEffect(() => {
     console.log("Previous Workouts Loaded:", previousWorkouts);
     setTotalWorkouts();
-  }, [previousWorkouts]);
+  }, [previousWorkouts, setTotalWorkouts]);
 
+  // Get workout dates from previous workouts and sort them in descending order
   const workoutDates = Object.keys(previousWorkouts).map(
     (timestamp) => new Date(Number(timestamp))
   );
   workoutDates.sort((a, b) => b - a);
 
+  // Function to toggle the expanded date
   const toggleExpandDate = (date) => {
     setExpandedDate(expandedDate?.getTime() === date.getTime() ? null : date);
   };

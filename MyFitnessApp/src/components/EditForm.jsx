@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import useFitnessStore from "../store/zustandStore";
 
 const EditForm = () => {
+  // Get necessary functions and state from the Zustand store
   const { editingWorkout, editWorkout, clearEditingWorkout, exercises } =
     useFitnessStore();
+
+  // State to keep track of the workout details being edited
   const [workoutDetails, setWorkoutDetails] = useState({
     sets: "",
     reps: "",
     weight: "",
   });
 
+  // useEffect hook to update the workout details state when editingWorkout changes
   useEffect(() => {
     if (editingWorkout) {
       setWorkoutDetails({
@@ -20,14 +24,17 @@ const EditForm = () => {
     }
   }, [editingWorkout]);
 
+  // Function to handle input changes and update the workout details state
   const handleInput = (e) => {
     const { name, value } = e.target;
     setWorkoutDetails((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Function to handle form submission and update the workout in the Zustand store
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    // Find the selected exercise details from the exercises list
     const selectedExerciseDetails = exercises.find(
       (exercise) => exercise.id === parseInt(editingWorkout.exerciseId, 10)
     );
@@ -37,6 +44,7 @@ const EditForm = () => {
       return;
     }
 
+    // Create an updated workout object with the new details
     const updatedWorkout = {
       exerciseId: editingWorkout.exerciseId,
       exerciseName: selectedExerciseDetails.name,
@@ -44,7 +52,9 @@ const EditForm = () => {
       timestamp: editingWorkout.timestamp,
     };
 
+    // Call the editWorkout function to update the workout in the Zustand store
     editWorkout(updatedWorkout);
+    // Clear the editing workout state
     clearEditingWorkout();
   };
 

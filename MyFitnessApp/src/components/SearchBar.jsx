@@ -5,16 +5,24 @@ import SearchExerciseDetails from "./SearchExerciseDetails";
 const itemsPerPage = 15; // Number of items per page
 
 const SearchBar = () => {
+  // State to keep track of the search query
   const [query, setQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1); // State for current page
+  
+  // State to keep track of the current page
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  // Destructure necessary state and functions from the Zustand store
   const {
     fullExerciseInfo,
     fetchFullExerciseInfo,
     fetchExerciseImages,
     isFullExerciseLoading: loading,
   } = useFitnessStore();
+  
+  // State to keep track of the selected exercise
   const [selectedExercise, setSelectedExercise] = useState(null);
 
+  // Filter exercises based on the search query
   const filteredExercises = fullExerciseInfo.filter((exercise) => {
     const lowerCaseQuery = query.toLowerCase();
     return (
@@ -41,18 +49,18 @@ const SearchBar = () => {
     currentPage * itemsPerPage
   );
 
+  // useEffect hook to fetch full exercise info and images when the component mounts
   useEffect(() => {
     fetchFullExerciseInfo();
     fetchExerciseImages();
-  }, []);
+  }, [fetchFullExerciseInfo, fetchExerciseImages]);
 
-  // Handle page changes
+  // Function to handle page changes
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
   };
-
   return (
     <div className="bg-gray-200 p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">

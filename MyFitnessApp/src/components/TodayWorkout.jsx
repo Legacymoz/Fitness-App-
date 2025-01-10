@@ -4,17 +4,22 @@ import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import DoneButton from "./DoneButton";
 import ExerciseDetailsButton from "./ExerciseDetailsButton";
-import ExerciseDetails from "./ExerciseDetails";
+
 
 const TodayWorkout = () => {
+  // Destructure necessary state and functions from the Zustand store
   const { presentDayWorkouts, setPresentDayWorkouts, workouts } =
     useFitnessStore();
+
+  // State to keep track of the selected workout
   const [selectedWorkout, setSelectedWorkout] = useState(null);
 
+  // useEffect hook to set present day workouts when the component mounts or workouts change
   useEffect(() => {
     setPresentDayWorkouts();
   }, [setPresentDayWorkouts, workouts]);
 
+  // Function to handle workout click and toggle the selected workout
   const handleWorkoutClick = (workout) => {
     setSelectedWorkout((prevWorkout) =>
       prevWorkout === workout ? null : workout

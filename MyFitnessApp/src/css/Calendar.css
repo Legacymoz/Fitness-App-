@@ -1,31 +1,39 @@
+/* Style for the main calendar container */
 .react-calendar {
   @apply w-full max-w-md bg-transparent border-none rounded-lg shadow-md mx-auto;
 }
 
+/* Style for the navigation buttons in the calendar */
 .react-calendar__navigation button {
   @apply text-black;
 }
 
+/* Style for the navigation label in the calendar */
 .react-calendar__navigation__label {
   @apply text-black;
 }
 
+/* Style for each tile (day) in the calendar */
 .react-calendar__tile {
   @apply text-center p-2 cursor-pointer text-black relative;
 }
 
+/* Style for the current day tile */
 .react-calendar__tile--now {
   @apply bg-lightGreen text-black;
 }
 
+/* Style for the active (selected) day tile */
 .react-calendar__tile--active {
   @apply bg-green-500 text-white;
 }
 
+/* Style for the day tile on hover */
 .react-calendar__tile--hover:hover {
   @apply bg-green-100;
 }
 
+/* Style for the weekend day tiles */
 .react-calendar__month-view__days__day--weekend {
   @apply text-red-500;
 }

@@ -6,6 +6,8 @@ import EditForm from "./EditForm";
 const WorkoutLog = () => {
   const { selectedExercise, setWorkouts, workouts, exercises } =
     useFitnessStore();
+
+  // State to keep track of the workout details being logged
   const [workoutDetails, setWorkoutDetails] = useState({
     sets: "",
     reps: "",
@@ -15,52 +17,59 @@ const WorkoutLog = () => {
     }), // Default to today's date
   });
 
+  // Function to handle input changes and update the workout details state
   const handleInput = (e) => {
     const { name, value } = e.target;
     setWorkoutDetails((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  // Function to handle form submission and add the workout to the Zustand store
+    const handleFormSubmit = (e) => {
+      e.preventDefault();
 
-    const selectedExerciseDetails = exercises.find(
-      (exercise) => exercise.id === parseInt(selectedExercise, 10)
-    );
+      const selectedExerciseDetails = exercises.find(
+        (exercise) => exercise.id === parseInt(selectedExercise, 10)
+      );
 
-    if (!selectedExercise) {
-      alert("Please select an exercise.");
-      return;
-    }
+      if (!selectedExercise) {
+        alert("Please select an exercise.");
+        return;
+      }
 
-    const dateParts = workoutDetails.date.split("-");
-    const timestamp = new Date(
-      dateParts[0], // year
-      dateParts[1] - 1, // month (0-based index)
-      dateParts[2], // day
-      new Date().getHours(), // current hour
-      new Date().getMinutes(), // current minute
-      new Date().getSeconds(), // current second
-      new Date().getMilliseconds() // current millisecond
-    ).getTime();
+      // Split the date string into parts and construct a timestamp
+      const dateParts = workoutDetails.date.split("-");
+      const timestamp = new Date(
+        dateParts[0], // year
+        dateParts[1] - 1, // month (0-based index)
+        dateParts[2], // day
+        new Date().getHours(), // current hour
+        new Date().getMinutes(), // current minute
+        new Date().getSeconds(), // current second
+        new Date().getMilliseconds() // current millisecond
+      ).getTime();
 
-    const newWorkout = {
-      exerciseId: selectedExercise,
-      exerciseName: selectedExerciseDetails.name,
-      ...workoutDetails,
-      timestamp, // Use the constructed timestamp
+      // Create a new workout object with the entered details
+      const newWorkout = {
+        exerciseId: selectedExercise,
+        exerciseName: selectedExerciseDetails.name,
+        ...workoutDetails,
+        timestamp, // Use the constructed timestamp
+      };
+
+      // Add the new workout to the Zustand store
+      setWorkouts(newWorkout);
+
+      // Reset the workout details state
+      setWorkoutDetails({
+        sets: "",
+        reps: "",
+        weight: "",
+        date: new Date().toLocaleDateString("en-CA", {
+          timeZone: "Africa/Nairobi",
+        }),
+      }); // Reset form inputs
+      
     };
-    setWorkouts(newWorkout);
-
-    setWorkoutDetails({
-      sets: "",
-      reps: "",
-      weight: "",
-      date: new Date().toLocaleDateString("en-CA", {
-        timeZone: "Africa/Nairobi",
-      }),
-    }); // Reset form inputs
-    console.log("These are my Workouts:", workouts);
-  };
 
   useEffect(() => {
     console.log("Workouts:", workouts);

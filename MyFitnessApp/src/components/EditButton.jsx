@@ -4,16 +4,21 @@ import Modal from "./Modal";
 import EditForm from "./EditForm";
 
 const EditButton = ({ workout }) => {
+  // Get the setEditingWorkout function from the Zustand store
   const { setEditingWorkout } = useFitnessStore();
+
+  // State to control the visibility of the EditForm modal
   const [showEditForm, setShowEditForm] = useState(false);
 
+  // Function to handle the edit button click
   const handleEdit = () => {
-    setEditingWorkout(workout);
-    setShowEditForm(true);
+    setEditingWorkout(workout); // Set the workout to be edited in the Zustand store
+    setShowEditForm(true); // Show the EditForm modal
   };
 
+  // Function to handle closing the modal
   const handleCloseModal = () => {
-    setShowEditForm(false);
+    setShowEditForm(false); // Hide the EditForm modal
   };
 
   return (

@@ -4,25 +4,34 @@ import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 
 const AllWorkoutList = () => {
-  const { workouts } = useFitnessStore();
+  // Get the workouts from the Zustand store
+  const workouts = useFitnessStore((state) => state.workouts);
+
+  // State to keep track of the selected date
   const [selectedDate, setSelectedDate] = useState(null);
+
+  // State to keep track of the selected exercise
   const [selectedExercise, setSelectedExercise] = useState(null);
 
+  // Function to format the timestamp into a readable date string
   const formatDate = (timestamp) => {
     return new Date(timestamp).toLocaleDateString("en-CA", {
       timeZone: "Africa/Nairobi",
     });
   };
 
+  // Get unique dates from the workouts
   const uniqueDates = [
     ...new Set(workouts.map((workout) => formatDate(workout.timestamp))),
   ];
 
+  // Handle click on a date to toggle the selected date
   const handleDateClick = (date) => {
     setSelectedDate((prevDate) => (prevDate === date ? null : date));
     setSelectedExercise(null); // Reset selected exercise when date changes
   };
 
+  // Handle click on an exercise to toggle the selected exercise
   const handleExerciseClick = (workout) => {
     setSelectedExercise((prevExercise) =>
       prevExercise === workout ? null : workout

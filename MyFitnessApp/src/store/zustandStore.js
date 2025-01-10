@@ -4,30 +4,17 @@ import { useEffect } from "react";
 
 const useFitnessStore = create((set) => ({
   //holds a list of exercises fetched from the API
-
+  // State to hold all exercises
   exercises: [],
-  //   fetchExercises: async () => {
-  //     try {
-  //       let allExercises = "";
-  //       let nextUrl = "https://wger.de/api/v2/exercise-translation/";
-
-  //       while (nextUrl) {
-  //         const response = await axios.get(nextUrl);
-  //         const data = response.data;
-  //         allExercises = [...allExercises, ...data.results];
-  //         nextUrl = data.next; // Proceed to the next page if available
-  //       }
-
-  //       set({ exercises: allExercises });
-  //     } catch (error) {
-  //       console.error("Error fetching exercises:", error);
-  //     }
-  //   },
-  isLoading: false,
+  // State to indicate if exercises have been fetched
   hasFetchedExercises: false,
+  // State to indicate if data is loading
+  isLoading: false,
+
+  // Function to fetch exercises from the API
   fetchExercises: async () => {
     set({ hasFetchedExercises: true });
-    
+
     set({ isLoading: true }); // Indicate loading started
     try {
       let allExercises = [];
@@ -76,6 +63,7 @@ const useFitnessStore = create((set) => ({
     return date.getTime(); // Return the normalized timestamp in milliseconds
   },
 
+  //Holds a list of exercise images fetched from the API
   exerciseImages: [],
   fetchExerciseImages: async () => {
     try {
@@ -95,6 +83,7 @@ const useFitnessStore = create((set) => ({
     }
   },
 
+  //Holds a list of exercise full description fetched from the API
   fullExerciseInfo: [],
   isFullExerciseLoading: false,
 
@@ -116,61 +105,7 @@ const useFitnessStore = create((set) => ({
     }
   },
 
-  //   fetchFullExerciseInfo: async () => {
-  //     try {
-  //       set({ isFullExerciseLoading: true });
-  //       let nextUrl = "https://wger.de/api/v2/exerciseinfo/";
-
-  //       // Use a loop to fetch all pages
-  //       while (nextUrl) {
-  //         const response = await axios.get(nextUrl);
-  //         const data = response.data;
-
-  //         // Append the new data to the existing state
-  //         set((state) => ({
-  //           fullExerciseInfo: [...state.fullExerciseInfo, ...data.results],
-  //         }));
-
-  //         // Update the next URL for the next iteration
-  //         nextUrl = data.next;
-  //       }
-
-  //       set({ isFullExerciseLoading: false }); // Loading complete
-  //       console.log("All data fetched!");
-  //     } catch (error) {
-  //       console.error("Error fetching exercises:", error);
-  //     }
-  //   },
-  //   fetchFullExerciseInfo: async () => {
-  //     set({ isFullExerciseLoading: true });
-  //     try {
-  //       let allExercisesInfo = [];
-  //       let nextUrl = "https://wger.de/api/v2/exerciseinfo/";
-
-  //       while (nextUrl) {
-  //         const response = await axios.get(nextUrl);
-  //         const data = response.data;
-  //         allExercisesInfo = [
-  //           ...allExercisesInfo,
-  //           ...data.results.filter(
-  //             (item) => !allExercisesInfo.some((e) => e.id === item.id)
-  //           ), // Ensure no duplicates by checking the `id`
-  //         ];
-  //         nextUrl = data.next; // Proceed to the next page if available
-  //       }
-
-  //       set({ fullExerciseInfo: allExercisesInfo });
-  //     } catch (error) {
-  //       console.error("Error fetching full exercises info:", error);
-  //     } finally {
-  //       set({ isFullExerciseLoading: false });
-  //     }
-  //   },
-
-  //   deleteWorkout: (id) =>
-  //     set((state) => ({
-  //       presentDayWorkouts: state.presentDayWorkouts.filter((item) => item.exerciseId !== id),
-  //     })),
+  //function to delete a workout from the workout array
   deleteWorkout: (timestamp) =>
     set((state) => {
       const updatedWorkouts = state.workouts.filter(
@@ -180,6 +115,7 @@ const useFitnessStore = create((set) => ({
       return { workouts: updatedWorkouts };
     }),
 
+  //holds a list of workouts for the present day
   presentDayWorkouts: [],
   setPresentDayWorkouts: () => {
     set((state) => {
@@ -192,6 +128,7 @@ const useFitnessStore = create((set) => ({
     });
   },
 
+  //Holds a list of previous workouts
   previousWorkouts: JSON.parse(localStorage.getItem("previousWorkouts")) || {},
   setPreviousWorkouts: (time) => {
     set((state) => {
@@ -234,6 +171,8 @@ const useFitnessStore = create((set) => ({
       };
     });
   },
+
+  //holds the total weight lifted by the user
   totalWeights: {},
   setTotalWeight: (timestamp, totalWeight) => {
     set((state) => {

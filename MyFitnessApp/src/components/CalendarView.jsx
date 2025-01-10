@@ -5,21 +5,28 @@ import "../css/Calendar.css"; // Import the custom CSS file
 import useFitnessStore from "../store/zustandStore";
 
 const CalendarView = () => {
-  const { workouts } = useFitnessStore();
+  // State to keep track of the selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  // Get the workouts from the Zustand store
+  const workouts = useFitnessStore((state) => state.workouts);
+
+  // Handle date change in the calendar
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
+  // Function to format the date into a readable string
   const formatDate = (date) => {
     return date.toLocaleDateString("en-CA", { timeZone: "Africa/Nairobi" });
   };
 
+  // Filter workouts for the selected date
   const selectedDateWorkouts = workouts.filter((workout) => {
     return formatDate(new Date(workout.timestamp)) === formatDate(selectedDate);
   });
 
+  // Function to add content to the calendar tiles
   const tileContent = ({ date, view }) => {
     if (view === "month") {
       const dateStr = formatDate(date);
