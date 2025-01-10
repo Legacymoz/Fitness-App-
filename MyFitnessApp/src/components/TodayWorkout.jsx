@@ -7,11 +7,22 @@ import ExerciseDetailsButton from "./ExerciseDetailsButton";
 
 const TodayWorkout = () => {
   // Destructure necessary state and functions from the Zustand store
-  const { presentDayWorkouts, setPresentDayWorkouts, workouts } =
-    useFitnessStore();
+  const {
+    presentDayWorkouts,
+    setPresentDayWorkouts,
+    workouts,
+    fetchExercises,
+    hasFetchedExercises,
+  } = useFitnessStore();
 
   // State to keep track of the selected workout
   const [selectedWorkout, setSelectedWorkout] = useState(null);
+  
+  useEffect(() => {
+    if (!hasFetchedExercises) {
+      fetchExercises(); // Fetch data on component mount
+    }
+  }, [fetchExercises, hasFetchedExercises]);
 
   // useEffect hook to set present day workouts when the component mounts or workouts change
   useEffect(() => {
