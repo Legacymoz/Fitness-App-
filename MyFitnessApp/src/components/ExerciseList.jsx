@@ -4,11 +4,11 @@ import useFitnessStore from "../store/zustandStore";
 const ExerciseList = () => {
   // Destructure necessary state and functions from the Zustand store
   const {
-    exercises,
     fetchExercises,
     hasFetchedExercises,
     setSelectedExercise,
   } = useFitnessStore();
+  const exercises = useFitnessStore((state) => state.exercises);
 
   // useEffect hook to fetch exercises when the component mounts if they haven't been fetched already
   useEffect(() => {

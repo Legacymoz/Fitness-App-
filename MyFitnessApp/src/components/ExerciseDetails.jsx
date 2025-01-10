@@ -1,9 +1,15 @@
-import React, { useState,useEffect } from 'react'
-import useFitnessStore from '../store/zustandStore'
+import React, { useState, useEffect } from "react";
+import useFitnessStore from "../store/zustandStore";
 
-const ExerciseDetails = ({exerciseId}) => {
-  // Get exercises and exerciseImages from the Zustand store
-  const { exercises, exerciseImages } = useFitnessStore();
+const ExerciseDetails = ({ exerciseId }) => {
+  
+  const {
+    exercises,
+    exerciseImages,
+    fetchExercises,
+    hasFetchedExercises,
+    fetchExerciseImages,
+  } = useFitnessStore();
 
   // State to keep track of the described exercise
   const [describedExercise, setDescribedExercise] = useState(null);
@@ -13,7 +19,10 @@ const ExerciseDetails = ({exerciseId}) => {
 
   // useEffect hook to update the described exercise and image URL when exerciseId or exercises change
   useEffect(() => {
-    console.log("my exerciseId", exerciseId);
+    if (!hasFetchedExercises) {
+      fetchExercises(); // Fetch data on component mount
+    }
+    fetchExerciseImages();
 
     // Find the described exercise when component loads or exerciseId changes
     const foundExercise = exercises.find(
@@ -27,10 +36,9 @@ const ExerciseDetails = ({exerciseId}) => {
         (image) => image.exercise_base === foundExercise.exercise_base
       );
       setImageUrl(foundImage?.image || null);
-      console.log("my image URLs", exerciseImages);
-      console.log("my full description exercise", exercises);
+     
     }
-  }, [exerciseId, exercises, exerciseImages]);
+  }, [exerciseId, exercises, exerciseImages, fetchExercises, exerciseImages]);
 
   // If the described exercise is not found, display a loading message
   if (!describedExercise) {
@@ -58,6 +66,6 @@ const ExerciseDetails = ({exerciseId}) => {
       )}
     </div>
   );
-}
+};
 
-export default ExerciseDetails
+export default ExerciseDetails;
