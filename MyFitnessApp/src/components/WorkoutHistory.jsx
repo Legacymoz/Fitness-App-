@@ -12,9 +12,9 @@ const WorkoutHistory = () => {
   // Destructure necessary state and functions from the Zustand store
   const { totalWorkouts, setTotalWorkouts } = useFitnessStore();
 
-  // useEffect hook to log a message and set total workouts when previousWorkouts change
+  // useEffect hook to set total workouts when previousWorkouts change
   useEffect(() => {
-    console.log("Previous Workouts Loaded:", previousWorkouts);
+    
     setTotalWorkouts();
   }, [previousWorkouts, setTotalWorkouts]);
 

@@ -17,10 +17,8 @@ const ExerciseList = () => {
     }
   }, [fetchExercises, hasFetchedExercises]);
 
-  // useEffect hook to log a message when exercises are loaded
-  useEffect(() => {
-    console.log("Exercises Loading complete");
-  }, [exercises]);
+  
+  
 
   return (
     <div className="bg-white p-0 rounded-lg ">

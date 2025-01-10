@@ -70,11 +70,6 @@ const WorkoutLog = () => {
       }); // Reset form inputs
       
     };
-
-  useEffect(() => {
-    console.log("Workouts:", workouts);
-  }, [workouts]);
-
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
